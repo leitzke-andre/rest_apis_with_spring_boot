@@ -13,6 +13,45 @@ public class MathController {
         return convertToDouble(firstOperand) + convertToDouble(secondOperand);
     }
 
+    @RequestMapping(value = "/subtract/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
+    public Double subtract(
+            @PathVariable(value = "firstOperand") String firstOperand,
+            @PathVariable(value = "secondOperand") String secondOperand
+    ) {
+        return convertToDouble(firstOperand) - convertToDouble(secondOperand);
+    }
+
+    @RequestMapping(value = "/multiply/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
+    public Double multiply(
+            @PathVariable(value = "firstOperand") String firstOperand,
+            @PathVariable(value = "secondOperand") String secondOperand
+    ) {
+        return convertToDouble(firstOperand) * convertToDouble(secondOperand);
+    }
+
+    @RequestMapping(value = "/divide/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
+    public Double divide(
+            @PathVariable(value = "firstOperand") String firstOperand,
+            @PathVariable(value = "secondOperand") String secondOperand
+    ) {
+        return convertToDouble(firstOperand) / convertToDouble(secondOperand);
+    }
+
+    @RequestMapping(value = "/power/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
+    public Double power(
+            @PathVariable(value = "firstOperand") String firstOperand,
+            @PathVariable(value = "secondOperand") String secondOperand
+    ) {
+        return Math.pow(convertToDouble(firstOperand), convertToDouble(secondOperand));
+    }
+
+    @RequestMapping(value = "/root/{firstOperand}", method = RequestMethod.GET)
+    public Double root(
+            @PathVariable(value = "firstOperand") String firstOperand
+    ) {
+        return Math.sqrt(convertToDouble(firstOperand));
+    }
+
     private Double convertToDouble(String number) {
         String strNumber = number.replaceAll(",", ".");
         if (isNumeric(strNumber)) {
