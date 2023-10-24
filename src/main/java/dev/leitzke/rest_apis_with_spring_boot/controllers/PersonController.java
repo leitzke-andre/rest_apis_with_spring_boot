@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/person")
@@ -16,7 +17,7 @@ public class PersonController {
     private PersonService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(
+    public Optional<Person> findById(
             @PathVariable(value = "id") String id
     ) {
         return service.findbyId(id);

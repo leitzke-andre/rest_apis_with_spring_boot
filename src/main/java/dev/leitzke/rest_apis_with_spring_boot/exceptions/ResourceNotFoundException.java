@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.io.Serial;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class InvalidOperandException extends RuntimeException {
+public class ResourceNotFoundException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public InvalidOperandException(String s) {
+    public ResourceNotFoundException(String s) {
         super(s);
     }
 }

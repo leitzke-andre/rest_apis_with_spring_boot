@@ -1,21 +1,31 @@
 package dev.leitzke.rest_apis_with_spring_boot.model;
 
+import jakarta.persistence.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 
+@Entity
+@Table(name="person")
 public class Person implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String firstName;
-    private String lastName;
 
     public Person() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name="first_name", nullable = false, length = 80)
+    private String firstName;
+    @Column(name="last_name",  nullable = false, length = 80)
+    private String lastName;
+    @Column( nullable = false, length = 120)
     private String address;
+    @Column(length = 25)
     private String gender;
 
     public Long getId() {
