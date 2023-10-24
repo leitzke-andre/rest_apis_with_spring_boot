@@ -5,6 +5,7 @@ spring:
     url: jdbc:mariadb://localhost:3306/springbootcourse?useTimezone=true&serverTimezone=UTC
     username: andre
     password: welcome
+#TODO: Remove password from yaml file.
   jpa:
     hibernate:
       ddl-auto: update
