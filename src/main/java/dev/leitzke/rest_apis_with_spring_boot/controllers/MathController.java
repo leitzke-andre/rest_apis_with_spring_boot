@@ -1,16 +1,25 @@
 package dev.leitzke.rest_apis_with_spring_boot.controllers;
 
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.InvalidOperandException;
+import dev.leitzke.rest_apis_with_spring_boot.service.MathService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MathController {
+
+    private final MathService mathService;
+
+    public MathController(@Autowired MathService mathService) {
+        this.mathService = mathService;
+    }
+
     @RequestMapping(value = "/sum/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
     public Double sum(
             @PathVariable(value = "firstOperand") String firstOperand,
             @PathVariable(value = "secondOperand") String secondOperand
     ) {
-        return convertToDouble(firstOperand) + convertToDouble(secondOperand);
+        return mathService.sum(firstOperand, secondOperand);
     }
 
     @RequestMapping(value = "/subtract/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
@@ -18,7 +27,7 @@ public class MathController {
             @PathVariable(value = "firstOperand") String firstOperand,
             @PathVariable(value = "secondOperand") String secondOperand
     ) {
-        return convertToDouble(firstOperand) - convertToDouble(secondOperand);
+        return mathService.subtract(firstOperand, secondOperand);
     }
 
     @RequestMapping(value = "/multiply/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
@@ -26,7 +35,7 @@ public class MathController {
             @PathVariable(value = "firstOperand") String firstOperand,
             @PathVariable(value = "secondOperand") String secondOperand
     ) {
-        return convertToDouble(firstOperand) * convertToDouble(secondOperand);
+        return mathService.multiply(firstOperand, secondOperand);
     }
 
     @RequestMapping(value = "/divide/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
@@ -34,7 +43,7 @@ public class MathController {
             @PathVariable(value = "firstOperand") String firstOperand,
             @PathVariable(value = "secondOperand") String secondOperand
     ) {
-        return convertToDouble(firstOperand) / convertToDouble(secondOperand);
+        return mathService.divide(firstOperand, secondOperand);
     }
 
     @RequestMapping(value = "/power/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
@@ -42,27 +51,13 @@ public class MathController {
             @PathVariable(value = "firstOperand") String firstOperand,
             @PathVariable(value = "secondOperand") String secondOperand
     ) {
-        return Math.pow(convertToDouble(firstOperand), convertToDouble(secondOperand));
+        return mathService.power(firstOperand, secondOperand);
     }
 
     @RequestMapping(value = "/root/{firstOperand}", method = RequestMethod.GET)
     public Double root(
             @PathVariable(value = "firstOperand") String firstOperand
     ) {
-        return Math.sqrt(convertToDouble(firstOperand));
+        return mathService.squareRoot(firstOperand);
     }
-
-    private Double convertToDouble(String number) {
-        String strNumber = number.replaceAll(",", ".");
-        if (isNumeric(strNumber)) {
-            return Double.parseDouble(strNumber);
-        }
-        throw new InvalidOperandException("One of the operands is not a number, please check and adjust accordingly.");
-    }
-
-    private boolean isNumeric(String number) {
-        if (number.isBlank()) return false;
-        return number.matches("[+-]?[0-9]*\\.?[0-9]+");
-    }
-
 }
