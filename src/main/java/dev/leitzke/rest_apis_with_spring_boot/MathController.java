@@ -2,8 +2,6 @@ package dev.leitzke.rest_apis_with_spring_boot;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 @RestController
 public class MathController {
     @RequestMapping(value = "/sum/{firstOperand}/{secondOperand}", method = RequestMethod.GET)
