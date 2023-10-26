@@ -1,6 +1,6 @@
 package dev.leitzke.rest_apis_with_spring_boot.controllers;
 
-import dev.leitzke.rest_apis_with_spring_boot.model.Person;
+import dev.leitzke.rest_apis_with_spring_boot.data.vo.v1.PersonVO;
 import dev.leitzke.rest_apis_with_spring_boot.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/person")
@@ -19,7 +19,7 @@ public class PersonController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(
+    public PersonVO findById(
             @PathVariable(value = "id") Long id
     ) {
         return service.findbyId(id);
@@ -27,21 +27,21 @@ public class PersonController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         return service.findAll();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody(required = true) Person person) {
+    public PersonVO create(@RequestBody(required = true) PersonVO person) {
         return service.create(person);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody(required = true) Person person) {
+    public PersonVO update(@RequestBody(required = true) PersonVO person) {
         return service.update(person);
     }
 
