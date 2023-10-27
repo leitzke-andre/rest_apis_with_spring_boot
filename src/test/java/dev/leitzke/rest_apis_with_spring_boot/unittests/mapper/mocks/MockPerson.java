@@ -54,7 +54,7 @@ public class MockPerson {
         person.setAddress("Address Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
+        person.setPersonId(number.longValue());
         person.setLastName("Last Name Test" + number);
         person.setBirthDate(LocalDate.of(2023, 1, 1));
         return person;
@@ -65,7 +65,7 @@ public class MockPerson {
         person.setAddress("Address Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
+        person.setPersonId(number.longValue());
         person.setLastName("Last Name Test" + number);
         return person;
     }
@@ -75,7 +75,7 @@ public class MockPerson {
         person.setAddress("Address Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
+        person.setPersonId(number.longValue());
         person.setLastName("Last Name Test" + number);
         person.setBirthDate(LocalDate.of(2023, 1, 1));
         return person;

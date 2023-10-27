@@ -1,11 +1,16 @@
 package dev.leitzke.rest_apis_with_spring_boot.data.vo.v1;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serial;
 import java.io.Serializable;
 
 
-public class PersonVO implements Serializable {
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
 
     @Serial
@@ -15,17 +20,18 @@ public class PersonVO implements Serializable {
     public PersonVO() {
     }
 
-    private Long id;
+    @JsonProperty("id")
+    private Long personId;
     private String firstName;
     private String lastName;
     private String address;
     private String gender;
 
-    public Long getId() {
-        return id;
+    public Long getPersonId() {
+        return personId;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getFirstName() {

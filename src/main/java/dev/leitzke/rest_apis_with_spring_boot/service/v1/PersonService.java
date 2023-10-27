@@ -1,5 +1,6 @@
 package dev.leitzke.rest_apis_with_spring_boot.service.v1;
 
+import dev.leitzke.rest_apis_with_spring_boot.controllers.v1.PersonController;
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.DuplicatedEntryException;
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.ResourceNotFoundException;
 import dev.leitzke.rest_apis_with_spring_boot.data.vo.v1.PersonVO;
@@ -13,6 +14,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Service
 public class PersonService {
 
@@ -23,24 +27,33 @@ public class PersonService {
 
     public List<PersonVO> findAll() {
         logger.info("Returning all PersonVO entries");
-        return Mapper.mapListObjects(repository.findAll(), PersonVO.class);
-
+        var voList = Mapper.mapListObjects(repository.findAll(), PersonVO.class);
+        voList.stream().forEach(
+                p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getPersonId())).withSelfRel())
+        );
+        return voList;
     }
 
     public PersonVO findById(Long id) {
-        return Mapper.mapObject(
+         var vo = Mapper.mapObject(
                 repository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("PersonVO with ID="+id+" not found.")),
                 PersonVO.class
-        ) ;
+        );
+         vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+         vo.add(linkTo(methodOn(PersonController.class).findAll()).withRel("all"));
+         return vo;
     }
 
     public PersonVO create(PersonVO person){
-        if(checkPersonExists(person.getId())) {
-            throw new DuplicatedEntryException("Insert failed. An entry with ID="+person.getId()+" already exists.");
+
+        if(person.getPersonId() != null && checkPersonExists(person.getPersonId())) {
+            throw new DuplicatedEntryException("Insert failed. An entry with ID="+person.getPersonId()+" already exists.");
         }
         Person personObject = Mapper.mapObject(person, Person.class);
-        return Mapper.mapObject(repository.save(personObject), PersonVO.class);
+        var vo = Mapper.mapObject(repository.save(personObject), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel());
+        return vo;
     }
 
     public void delete(Long id){
@@ -51,11 +64,13 @@ public class PersonService {
     }
 
     public PersonVO update(PersonVO person){
-        if (checkPersonExists(person.getId())) {
-            var entity = Mapper.mapObject(person, Person.class);
-            return Mapper.mapObject(repository.save(entity), PersonVO.class);
+        if (checkPersonExists(person.getPersonId())) {
+            Person personObject = Mapper.mapObject(person, Person.class);
+            var vo = Mapper.mapObject(repository.save(personObject), PersonVO.class);
+            vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel());
+            return vo;
         }
-        throw new ResourceNotFoundException("Update failed. PersonVOV2 with ID="+person.getId()+" not found.");
+        throw new ResourceNotFoundException("Update failed. PersonVOV2 with ID="+person.getPersonId()+" not found.");
     }
 
     private boolean checkPersonExists(Long id) {

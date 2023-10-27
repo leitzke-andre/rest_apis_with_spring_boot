@@ -19,7 +19,8 @@ public class PersonVOV2 implements Serializable {
     public PersonVOV2() {
     }
 
-    private Long id;
+    @JsonProperty("id")
+    private Long personId;
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
@@ -29,11 +30,11 @@ public class PersonVOV2 implements Serializable {
     @JsonProperty("birth_date")
     private LocalDate birthDate;
 
-    public Long getId() {
-        return id;
+    public Long getPersonId() {
+        return personId;
     }
-    public void setId(Long id) {
-        this.id = id;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getFirstName() {
@@ -83,7 +84,7 @@ public class PersonVOV2 implements Serializable {
 
         PersonVOV2 that = (PersonVOV2) o;
 
-        if (!id.equals(that.id)) return false;
+        if (!personId.equals(that.personId)) return false;
         if (!firstName.equals(that.firstName)) return false;
         if (!lastName.equals(that.lastName)) return false;
         if (!address.equals(that.address)) return false;
@@ -93,7 +94,7 @@ public class PersonVOV2 implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = personId.hashCode();
         result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + address.hashCode();

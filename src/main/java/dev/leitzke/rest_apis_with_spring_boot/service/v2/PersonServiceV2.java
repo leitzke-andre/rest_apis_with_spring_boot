@@ -36,8 +36,8 @@ public class PersonServiceV2 {
     }
 
     public PersonVOV2 create(PersonVOV2 person){
-        if(checkPersonExists(person.getId())) {
-            throw new DuplicatedEntryException("Insert failed. An entry with ID="+person.getId()+" already exists.");
+        if(person.getPersonId() != null && checkPersonExists(person.getPersonId())) {
+            throw new DuplicatedEntryException("Insert failed. An entry with ID="+person.getPersonId()+" already exists.");
         }
         Person personObject = Mapper.mapObject(person, Person.class);
         return Mapper.mapObject(repository.save(personObject), PersonVOV2.class);
@@ -51,11 +51,11 @@ public class PersonServiceV2 {
     }
 
     public PersonVOV2 update(PersonVOV2 person){
-        if (checkPersonExists(person.getId())) {
+        if (checkPersonExists(person.getPersonId())) {
             var entity = Mapper.mapObject(person, Person.class);
             return Mapper.mapObject(repository.save(entity), PersonVOV2.class);
         }
-        throw new ResourceNotFoundException("Update failed. PersonVOV2 with ID="+person.getId()+" not found.");
+        throw new ResourceNotFoundException("Update failed. PersonVOV2 with ID="+person.getPersonId()+" not found.");
     }
 
     private boolean checkPersonExists(Long id) {
