@@ -8,5 +8,5 @@ spring:
 #TODO: Remove password from yaml file.
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: false
