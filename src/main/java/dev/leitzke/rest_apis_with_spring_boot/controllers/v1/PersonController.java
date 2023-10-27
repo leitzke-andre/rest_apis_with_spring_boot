@@ -1,7 +1,7 @@
-package dev.leitzke.rest_apis_with_spring_boot.controllers;
+package dev.leitzke.rest_apis_with_spring_boot.controllers.v1;
 
 import dev.leitzke.rest_apis_with_spring_boot.data.vo.v1.PersonVO;
-import dev.leitzke.rest_apis_with_spring_boot.service.PersonService;
+import dev.leitzke.rest_apis_with_spring_boot.service.v1.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/v1/person")
 public class PersonController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package dev.leitzke.rest_apis_with_spring_boot.service;
+package dev.leitzke.rest_apis_with_spring_boot.service.v1;
 
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.DuplicatedEntryException;
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.ResourceNotFoundException;
