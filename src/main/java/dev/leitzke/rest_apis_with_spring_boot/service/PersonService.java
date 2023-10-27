@@ -47,10 +47,14 @@ public class PersonService {
 
     public PersonVO update(PersonVO person){
         // If we don't check for the existence before saving it acts as an upsert, which can also be pretty useful.
-        Person personObject = repository.findById(person.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Update failed. PersonVO with ID="+person.getId()+" not found."));
+        checkPersonExists(person.getId());
         var entity = Mapper.mapObject(person, Person.class);
         return Mapper.mapObject(repository.save(entity), PersonVO.class);
+    }
+
+    private void checkPersonExists(Long id) {
+        repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Update failed. PersonVO with ID=" + id + " not found."));
     }
 
 }
