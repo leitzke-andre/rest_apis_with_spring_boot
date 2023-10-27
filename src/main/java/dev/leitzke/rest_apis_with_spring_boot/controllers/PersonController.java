@@ -22,7 +22,7 @@ public class PersonController {
     public PersonVO findById(
             @PathVariable(value = "id") Long id
     ) {
-        return service.findbyId(id);
+        return service.findById(id);
     }
 
     @ResponseStatus(HttpStatus.OK)
