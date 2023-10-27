@@ -1,11 +1,14 @@
 package dev.leitzke.rest_apis_with_spring_boot.data.vo.v2;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "birthDate", "address"})
 public class PersonVOV2 implements Serializable {
 
 
@@ -17,10 +20,13 @@ public class PersonVOV2 implements Serializable {
     }
 
     private Long id;
+    @JsonProperty("first_name")
     private String firstName;
+    @JsonProperty("last_name")
     private String lastName;
     private String address;
     private String gender;
+    @JsonProperty("birth_date")
     private LocalDate birthDate;
 
     public Long getId() {
