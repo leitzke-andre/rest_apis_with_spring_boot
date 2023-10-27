@@ -1,36 +1,25 @@
-package dev.leitzke.rest_apis_with_spring_boot.model;
+package dev.leitzke.rest_apis_with_spring_boot.data.vo.v1;
 
-import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 
-@Entity
-@Table(name="person")
-public class Person implements Serializable {
+
+public class PersonVO implements Serializable {
+
 
     @Serial
     private static final long serialVersionUID = 1L;
 
 
-    public Person() {
+    public PersonVO() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="first_name", nullable = false, length = 80)
     private String firstName;
-    @Column(name="last_name",  nullable = false, length = 80)
     private String lastName;
-    @Column( nullable = false, length = 120)
     private String address;
-    @Column(length = 25)
     private String gender;
-
-    @Column
-    private LocalDate birthDate;
 
     public Long getId() {
         return id;
@@ -69,13 +58,5 @@ public class Person implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
     }
 }

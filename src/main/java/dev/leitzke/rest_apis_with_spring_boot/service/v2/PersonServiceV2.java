@@ -1,8 +1,8 @@
-package dev.leitzke.rest_apis_with_spring_boot.service;
+package dev.leitzke.rest_apis_with_spring_boot.service.v2;
 
+import dev.leitzke.rest_apis_with_spring_boot.data.vo.v2.PersonVOV2;
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.DuplicatedEntryException;
 import dev.leitzke.rest_apis_with_spring_boot.exceptions.ResourceNotFoundException;
-import dev.leitzke.rest_apis_with_spring_boot.data.vo.v1.PersonVO;
 import dev.leitzke.rest_apis_with_spring_boot.mapper.Mapper;
 import dev.leitzke.rest_apis_with_spring_boot.model.Person;
 import dev.leitzke.rest_apis_with_spring_boot.repositories.PersonRepository;
@@ -14,46 +14,46 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
-public class PersonService {
+public class PersonServiceV2 {
 
-    private final Logger logger = Logger.getLogger(PersonService.class.getName());
+    private final Logger logger = Logger.getLogger(PersonServiceV2.class.getName());
 
     @Autowired
     PersonRepository repository;
 
-    public List<PersonVO> findAll() {
-        logger.info("Returning all PersonVO entries");
-        return Mapper.mapListObjects(repository.findAll(), PersonVO.class);
+    public List<PersonVOV2> findAll() {
+        logger.info("Returning all PersonVOV2 entries");
+        return Mapper.mapListObjects(repository.findAll(), PersonVOV2.class);
 
     }
 
-    public PersonVO findById(Long id) {
+    public PersonVOV2 findById(Long id) {
         return Mapper.mapObject(
                 repository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("PersonVO with ID="+id+" not found.")),
-                PersonVO.class
+                        .orElseThrow(() -> new ResourceNotFoundException("PersonVOV2 with ID="+id+" not found.")),
+                PersonVOV2.class
         ) ;
     }
 
-    public PersonVO create(PersonVO person){
+    public PersonVOV2 create(PersonVOV2 person){
         if(checkPersonExists(person.getId())) {
             throw new DuplicatedEntryException("Insert failed. An entry with ID="+person.getId()+" already exists.");
         }
         Person personObject = Mapper.mapObject(person, Person.class);
-        return Mapper.mapObject(repository.save(personObject), PersonVO.class);
+        return Mapper.mapObject(repository.save(personObject), PersonVOV2.class);
     }
 
     public void delete(Long id){
         var personToDelete = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Delete failed. PersonVO with ID="+id+" not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Delete failed. PersonVOV2 with ID="+id+" not found."));
         repository.delete(personToDelete);
         logger.info("Successfully deleted person ID="+id+".");
     }
 
-    public PersonVO update(PersonVO person){
+    public PersonVOV2 update(PersonVOV2 person){
         if (checkPersonExists(person.getId())) {
             var entity = Mapper.mapObject(person, Person.class);
-            return Mapper.mapObject(repository.save(entity), PersonVO.class);
+            return Mapper.mapObject(repository.save(entity), PersonVOV2.class);
         }
         throw new ResourceNotFoundException("Update failed. PersonVOV2 with ID="+person.getId()+" not found.");
     }

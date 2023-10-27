@@ -1,35 +1,26 @@
-package dev.leitzke.rest_apis_with_spring_boot.model;
+package dev.leitzke.rest_apis_with_spring_boot.data.vo.v2;
 
-import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@Entity
-@Table(name="person")
-public class Person implements Serializable {
+
+public class PersonVOV2 implements Serializable {
+
 
     @Serial
     private static final long serialVersionUID = 1L;
 
 
-    public Person() {
+    public PersonVOV2() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="first_name", nullable = false, length = 80)
     private String firstName;
-    @Column(name="last_name",  nullable = false, length = 80)
     private String lastName;
-    @Column( nullable = false, length = 120)
     private String address;
-    @Column(length = 25)
     private String gender;
-
-    @Column
     private LocalDate birthDate;
 
     public Long getId() {
@@ -77,5 +68,31 @@ public class Person implements Serializable {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PersonVOV2 that = (PersonVOV2) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!firstName.equals(that.firstName)) return false;
+        if (!lastName.equals(that.lastName)) return false;
+        if (!address.equals(that.address)) return false;
+        if (!gender.equals(that.gender)) return false;
+        return birthDate.equals(that.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + address.hashCode();
+        result = 31 * result + gender.hashCode();
+        result = 31 * result + birthDate.hashCode();
+        return result;
     }
 }
