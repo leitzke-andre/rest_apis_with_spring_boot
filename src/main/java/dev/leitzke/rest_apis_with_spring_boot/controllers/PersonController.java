@@ -34,14 +34,14 @@ public class PersonController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO create(@RequestBody(required = true) PersonVO person) {
+    public PersonVO create(@RequestBody PersonVO person) {
         return service.create(person);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO update(@RequestBody(required = true) PersonVO person) {
+    public PersonVO update(@RequestBody PersonVO person) {
         return service.update(person);
     }
 
