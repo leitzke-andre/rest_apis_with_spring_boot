@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="person")
@@ -27,6 +28,9 @@ public class Person implements Serializable {
     private String address;
     @Column(length = 25)
     private String gender;
+
+    @Column
+    private LocalDate birthDate;
 
     public Long getId() {
         return id;
@@ -65,5 +69,13 @@ public class Person implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 }

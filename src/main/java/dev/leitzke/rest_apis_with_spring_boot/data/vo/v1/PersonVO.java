@@ -1,12 +1,14 @@
 package dev.leitzke.rest_apis_with_spring_boot.data.vo.v1;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 
 
 public class PersonVO implements Serializable {
 
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 

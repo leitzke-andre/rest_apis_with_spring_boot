@@ -1,6 +1,7 @@
 package dev.leitzke.rest_apis_with_spring_boot.data.vo.v2;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 public class PersonVOV2 implements Serializable {
 
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 
