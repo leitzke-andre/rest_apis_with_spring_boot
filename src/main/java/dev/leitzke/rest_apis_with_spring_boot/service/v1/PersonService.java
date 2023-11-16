@@ -26,7 +26,7 @@ public class PersonService {
     PersonRepository repository;
 
     public List<PersonVO> findAll() {
-        logger.info("Returning all PersonVO entries");
+        logger.info("Returning all Person entries");
         var voList = Mapper.mapListObjects(repository.findAll(), PersonVO.class);
         voList.stream().forEach(
                 p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getPersonId())).withSelfRel())
@@ -37,7 +37,7 @@ public class PersonService {
     public PersonVO findById(Long id) {
          var vo = Mapper.mapObject(
                 repository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("PersonVO with ID="+id+" not found.")),
+                        .orElseThrow(() -> new ResourceNotFoundException("Person with ID="+id+" not found.")),
                 PersonVO.class
         );
          vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
@@ -58,7 +58,7 @@ public class PersonService {
 
     public void delete(Long id){
         var personToDelete = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Delete failed. PersonVO with ID="+id+" not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Delete failed. Person with ID="+id+" not found."));
         repository.delete(personToDelete);
         logger.info("Successfully deleted person ID="+id+".");
     }
@@ -70,7 +70,7 @@ public class PersonService {
             vo.add(linkTo(methodOn(PersonController.class).findById(vo.getPersonId())).withSelfRel());
             return vo;
         }
-        throw new ResourceNotFoundException("Update failed. PersonVOV2 with ID="+person.getPersonId()+" not found.");
+        throw new ResourceNotFoundException("Update failed. Person with ID="+person.getPersonId()+" not found.");
     }
 
     private boolean checkPersonExists(Long id) {
